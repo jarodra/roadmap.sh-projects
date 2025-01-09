@@ -5,21 +5,25 @@ get_total_cpu_usage(){
     top -bn1 | grep "%Cpu(s)" | cut -d ',' -f 4 | awk '{print "CPU Usage: " 100-$1 "%"}'
 }
 
+# TODO
 # Total memory usage (Free vs Used including percentage) - free
 get_total_memory_usage(){
     echo "Memory Usage:"
 }
 
+# TODO
 # Total disk usage (Free vs Used including percentage) - df
 get_disk_usage(){
     echo "Disk Usage:"
 }
 
+# TODO
 # Top 5 processes by CPU usage - ps
 get_top_process_cpu(){
     echo "Top 5 processes by CPU usage:"
 }
 
+# TODO
 # Top 5 processes by memory usage -ps
 get_top_process_memory(){
     echo "Top 5 processes by memory usage:"
@@ -46,7 +50,7 @@ get_load_average(){
 # Extras: logged in users 
 get_logged_users(){
     echo "Logged users:"
-    uptime | cut -d ',' -f2 | awk '{printf "- " $1 " " $2 ":"}'; echo
+    uptime | cut -d ',' -f2 | awk '{printf "- " $1 " " $2 ":\n" }'
     who | awk '{print "  - " $1}' | uniq
 }
 
@@ -59,6 +63,10 @@ get_failed_logins(){
 main() {
     echo "Server Performance Stats:"
     get_total_cpu_usage
+    # get_total_memory_usage
+    # get_disk_usage
+    # get_top_process_cpu
+    # get_top_process_memory
     get_uptime
     get_load_average
     get_logged_users

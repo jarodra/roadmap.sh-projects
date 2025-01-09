@@ -15,4 +15,4 @@ You are required to write a script server-stats.sh that can analyse basic server
 Once you have completed this project, you will have some basic knowledge on how to analyse server performance stats in order to debug and get a better understanding of the server’s performance.
 
 ## Solution
-Execute the shell script with ./server-stats.sh
+Execute the shell script with ./server-stats.sh or sh server-stats.sh or bash server-stats.sh
