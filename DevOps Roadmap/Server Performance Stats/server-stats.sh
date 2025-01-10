@@ -2,20 +2,23 @@
 
 # Total CPU usage
 get_total_cpu_usage(){
-    top -bn1 | grep "%Cpu(s)" | cut -d ',' -f 4 | awk '{print "CPU Usage: " 100-$1 "%"}'
+    top -bn2 | grep "%Cpu(s)" | tail -n 1 | cut -d ',' -f 4 | awk '{print "CPU Usage: " 100-$1 "%"}'
 }
 
-# TODO
-# Total memory usage (Free vs Used including percentage) - free
+# Total memory usage (Free vs Used including percentage)
 get_total_memory_usage(){
-    echo "Memory Usage:"
-    free -h
+    stats_memory_b=$(free | tr -s ' ' | sed -n '2p')
+    used_memory_b=$(echo "$stats_memory_b" | awk '{print $3}')
+    total_memory_b=$(echo "$stats_memory_b" | awk '{print $2}')
+    used_percentage=$((100 * $used_memory_b / $total_memory_b))
+    free_memory=$(free -h | tr -s ' ' | sed -n '2p' | cut -d' ' -f 4)
+    used_memory=$(free -h | tr -s ' ' | sed -n '2p' | cut -d' ' -f 3)
+    echo "Memory Usage: $used_percentage% (Used: $used_memory / Free: $free_memory)"
 }
 
-# TODO
-# Total disk usage (Free vs Used including percentage) - df
+# Total disk usage (Free vs Used including percentage)
 get_disk_usage(){
-    echo "Disk Usage:"
+    df -h --total | grep 'total' | awk '{printf "Disk Usage:" $5 " (Used: " $3 " / Free: " $2 ")" "\n"}'
 }
 
 # Top 5 processes by CPU usage
@@ -32,7 +35,7 @@ get_top_process_memory(){
 
 # Extras: Get os version
 get_os_version(){
-    hostnamectl | awk -F 'Operating System: ' '{printf "OS Information: " $2}'; echo
+     hostnamectl | grep 'Operating System:'
 }
 
 # Extras: Uptime
@@ -51,7 +54,7 @@ get_load_average(){
 # Extras: logged in users 
 get_logged_users(){
     echo "Logged users:"
-    uptime | cut -d ',' -f2 | awk '{printf "- " $1 " " $2 ":\n" }'
+    w | head -n 1 | awk '{printf "- " $4 " users:" "\n"}'
     who | awk '{print "  - " $1}' | uniq
 }
 
@@ -63,14 +66,25 @@ get_failed_logins(){
 
 main() {
     echo "Server Performance Stats:"
+    echo
     get_total_cpu_usage
-    # get_total_memory_usage
-    # get_disk_usage
+    echo
+    get_total_memory_usage
+    echo
+    get_disk_usage
+    echo
     get_top_process_cpu
+    echo
     get_top_process_memory
+    echo
+    get_os_version
+    echo
     get_uptime
+    echo
     get_load_average
+    echo
     get_logged_users
+    echo
     get_failed_logins
 }
 
