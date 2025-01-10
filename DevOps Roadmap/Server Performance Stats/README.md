@@ -1,5 +1,5 @@
 # [Server Performance Stats](https://roadmap.sh/projects/server-stats)
-Write a script to analyse basic server performance stats.
+Script to analyse basic server performance stats.
 
 Goal of this project is to write a script to analyse server performance stats.
 
@@ -14,5 +14,5 @@ You are required to write a script server-stats.sh that can analyse basic server
 
 Once you have completed this project, you will have some basic knowledge on how to analyse server performance stats in order to debug and get a better understanding of the server’s performance.
 
-## Solution
+## [Solution](https://github.com/jarodra/roadmap.sh-projects/tree/main/DevOps%20Roadmap/Server%20Performance%20Stats)
 Execute the shell script with ./server-stats.sh or sh server-stats.sh or bash server-stats.sh
