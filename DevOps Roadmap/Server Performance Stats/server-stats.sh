@@ -9,6 +9,7 @@ get_total_cpu_usage(){
 # Total memory usage (Free vs Used including percentage) - free
 get_total_memory_usage(){
     echo "Memory Usage:"
+    free -h
 }
 
 # TODO
@@ -17,16 +18,16 @@ get_disk_usage(){
     echo "Disk Usage:"
 }
 
-# TODO
-# Top 5 processes by CPU usage - ps
+# Top 5 processes by CPU usage
 get_top_process_cpu(){
     echo "Top 5 processes by CPU usage:"
+    ps -eo pcpu,pid,user,cmd,comm --sort=-pcpu | head -n 6
 }
 
-# TODO
-# Top 5 processes by memory usage -ps
+# Top 5 processes by memory usage
 get_top_process_memory(){
     echo "Top 5 processes by memory usage:"
+    ps -eo pmem,pid,user,cmd,comm --sort=-pmem | head -n 6
 }
 
 # Extras: Get os version
@@ -54,7 +55,7 @@ get_logged_users(){
     who | awk '{print "  - " $1}' | uniq
 }
 
-# Extras: failed login attemps:
+# Extras: failed login attemps
 get_failed_logins(){
     echo "Failed logins:"
     grep "FAILED" /var/log/auth.log | awk '{printf "- " $0 "\n"}'
@@ -65,8 +66,8 @@ main() {
     get_total_cpu_usage
     # get_total_memory_usage
     # get_disk_usage
-    # get_top_process_cpu
-    # get_top_process_memory
+    get_top_process_cpu
+    get_top_process_memory
     get_uptime
     get_load_average
     get_logged_users
