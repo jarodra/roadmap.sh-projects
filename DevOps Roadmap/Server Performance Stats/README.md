@@ -1,4 +1,4 @@
-# Server Performance Stats: [https://roadmap.sh/projects/server-stats](https://roadmap.sh/projects/server-stats)
+# [Server Performance Stats](https://roadmap.sh/projects/server-stats):
 Script to analyse basic server performance stats.
 
 Goal of this project is to write a script to analyse server performance stats.
